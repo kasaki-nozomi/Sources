@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    img {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/m.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/b.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/u.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/k.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/mm.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/mb.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/bb.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/kk.png">
+        <img src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/loading04.gif"
+            data-src="https://raw.githubusercontent.com/kasaki-nozomi/Sources/main/Images/uu.png">
+    </div>
+    <script>
+        const imgs = document.querySelectorAll('img')
+        function lazyLoad() {
+            const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+            const windowHeight = window.innerHeight || document.documentElement.clientWidth
+            for (let i = 0; i < imgs.length; i++) {
+                const imgsrc = imgs[i].getAttribute('data-src')
+                if (imgsrc) {
+                    if (imgs[i].offsetTop < scrollTop + windowHeight) {
+                        imgs[i].src = imgsrc
+                        imgs[i].removeAttribute('data-src')
+                    }
+                }
+            }
+        }
+        function throttling(func, wait = 500) {
+            let timeout
+            return function () {
+                let context = this
+                let args = arguments
+                if (!timeout) {
+                    timeout = setTimeout(function () {
+                        timeout = null
+                        func.apply(context, args)
+                    }, wait)
+                }
+            }
+        }
+        window.onload = function () { lazyLoad() }
+        window.onscroll = throttling(lazyLoad, 1000)
+    </script>
+</body>
+</html>
